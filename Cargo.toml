@@ -1,0 +1,15 @@
+[package]
+name = "succinct-scheduling"
+version = "0.1.0"
+authors = ["Michael Sheely <msheely@hmc.edu>"]
+
+[lib]
+name = "mylib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "mybin"
+path = "src/bin.rs"
+
+[dependencies]
+nom = "^1.2.4"
