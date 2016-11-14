@@ -8,8 +8,9 @@ name = "mylib"
 path = "src/lib.rs"
 
 [[bin]]
-name = "mybin"
-path = "src/bin.rs"
+name = "repl"
+path = "src/repl.rs"
 
 [dependencies]
 nom = "^1.2.4"
+regex = "0.1"

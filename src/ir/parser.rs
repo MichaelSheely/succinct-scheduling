@@ -1,8 +1,15 @@
-#[macro_use]
-extern crate nom;
 
-pub mod ir;
+use ir::Day;
 
+use nom::digit;
+use std::str;
+use std::str::FromStr;
+
+named!(pub day <Day>,
+       chain!(char!('a'), || { return Day::Monday })
+);
+
+/*
 macro_rules! check(
   ($input:expr, $submac:ident!( $($args:tt)* )) => (
     {
@@ -22,6 +29,11 @@ macro_rules! check(
   );
   ($input:expr, $f:expr) => ( check!($input, call!($f)););
 );
+*/
+/*
+named!(digit,
+  alt!(char!('0') | char!('1') | char!('2') | char!('3') | char!('4') |
+       char!('5') | char!('6') | char!('7') | char!('8') | char!('9'))
 
 fn buf_to_u32(s: &[u8]) -> u32 {
     to_u32(to_string(s))
@@ -55,4 +67,6 @@ named!(pub time <&[u8], Time>, chain!(
         m: meridiem ~
         || {Time{ hour: h, meridiem: m }}
         ));
+*/
+
 
