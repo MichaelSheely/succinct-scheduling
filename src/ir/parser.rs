@@ -1,13 +1,22 @@
 
 use ir::Day;
 
-use nom::digit;
-use std::str;
-use std::str::FromStr;
+//use nom::digit;
+//use std::str;
+//use std::str::FromStr;
 
-named!(pub day <Day>,
-       chain!(char!('a'), || { return Day::Monday })
+named!(mon <Day>,
+       chain!(alt!(tag!("Monday") | tag!("monday")), || { Day::Monday }));
+named!(tues <Day>,
+       chain!(alt!(tag!("Tuesday") | tag!("tuesday")), || { Day::Tuesday }));
+
+named!(pub day <Day>, alt!(
+       chain!(mon, || { return Day::Monday }) |
+       chain!(tues, || { return Day::Tuesday })
+   )
 );
+
+
 
 /*
 macro_rules! check(
