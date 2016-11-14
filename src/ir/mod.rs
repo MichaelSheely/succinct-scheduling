@@ -3,6 +3,6 @@
 mod ir;
 mod parser;
 
-pub use self::ir::{Day, Time, Meridiem, Displacement};
-pub use self::parser::time as parse;
+pub use self::ir::{Day, Time, Meridiem, Displacement, Entry};
+pub use self::parser::entry as parse;
 

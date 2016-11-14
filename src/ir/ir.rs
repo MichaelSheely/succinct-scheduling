@@ -4,8 +4,6 @@
 // Put this somewhere to allow hashing and thus insertion into maps
 // #[derive(PartialEq, Eq, Hash)]
 
-//pub mod ir {
-
 #[derive(Debug)]
 pub enum Day {
     Monday, Tuesday, Wednesday, Thursday,
@@ -28,10 +26,14 @@ pub enum Meridiem {
 
 #[derive(Debug)]
 pub struct Displacement {
-    day : Day,
-    start : Time,
-    end : Time,
+    pub start : Time,
+    pub end : Time,
+    pub badness : u8
 }
 
-//} // pub mod IR
+#[derive(Debug)]
+pub struct Entry {
+    pub days : Vec<Day>,
+    pub displacements : Vec<Displacement>
+}
 

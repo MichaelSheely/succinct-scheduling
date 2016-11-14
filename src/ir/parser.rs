@@ -1,5 +1,7 @@
 
 use ir::Day;
+use ir::Displacement;
+use ir::Entry;
 use ir::Meridiem;
 use ir::Time;
 
@@ -32,8 +34,15 @@ named!(pub time <Time>, chain!(h : hour ~ m : meridiem,
        || Time{hour: h, meridiem: m})
 );
 
-// parse a Time
-// parse a Displacement
-// parse an entry
+named!(displacement <Displacement>, chain!(
+        tag!("free(") ~
+        t0 : time ~ char!('-') ~ 
+        t1 : time ~ char!(')'), || Displacement{start: t0, end: t1, badness: 0})
+);
 
+named!(pub entry <Entry>, 
+        chain!(days : many1!(day) ~ tag!(":") ~
+               displacements : many1!(displacement),
+               || Entry{days: days, displacements: displacements} )
+);
 
