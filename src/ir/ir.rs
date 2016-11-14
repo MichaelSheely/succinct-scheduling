@@ -14,8 +14,8 @@ pub enum Day {
 
 #[derive(Debug)]
 pub struct Time {
-    hour : i32,
-    meridiem : Meridiem
+    pub hour : u8,
+    pub meridiem : Meridiem
     //minute : i32,
 }
 
