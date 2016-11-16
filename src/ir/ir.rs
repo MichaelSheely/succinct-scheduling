@@ -6,8 +6,8 @@
 
 #[derive(Debug)]
 pub enum Day {
-    Monday, Tuesday, Wednesday, Thursday,
-    Friday, Saturday, Sunday
+    Monday, Tuesday, //Wednesday, Thursday,
+    //Friday, Saturday, Sunday
 }
 
 #[derive(Debug)]
