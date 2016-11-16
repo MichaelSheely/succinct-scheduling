@@ -15,7 +15,7 @@ fn main() {
     while io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false) {
         match ir::parse(line.as_str().trim().as_bytes()) {
             IResult::Done(rest, ref res) if rest.len() == 0 =>
-                println!("Parsed: {:?}", res),
+                println!("Parsed: {:#?}", res),
             IResult::Error(x) => println!("Error: {:?}", x),
             IResult::Incomplete(x) => println!("Incomplete: {:?}", x),
             _ => println!("Not error or incomplete, but unsuccessful parse."),
