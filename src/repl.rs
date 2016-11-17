@@ -6,12 +6,11 @@ extern crate nom;
 
 mod ir;
 
-use nom::IResult;
 use std::io;
+use nom::IResult;
 
 fn main() {
     let mut line = String::new();
-//    let date_re = Regex::new(r"(\d{4})-(\d{2})-(\d{2})").unwrap();
     while io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false) {
         match ir::parse(line.as_str().trim().as_bytes()) {
             IResult::Done(rest, ref res) if rest.len() == 0 =>
@@ -24,3 +23,4 @@ fn main() {
         line.clear();
     }
 }
+
