@@ -19,7 +19,8 @@ named!(pub day <Day>, alt!(
 );
 
 // Zero or more instances of whitespace
-named!(whitespace<Vec<&[u8]> >, many0!(tag!(" ")));
+named!(whitespace<Vec<&[u8]> >, many0!(alt!(
+            tag!(" ") | tag!("\n") | tag!("\t") )));
 
 named!(meridiem <Meridiem>, alt!(
         chain!(char!('a') ~ alt!(tag!(".m.") | tag!("m")), || {Meridiem::am}) |
@@ -35,15 +36,21 @@ named!(pub time <Time>, chain!(h : hour ~ m : meridiem,
        || Time{hour: h, meridiem: m})
 );
 
-named!(displacement <Displacement>, chain!(
-        tag!("free(") ~
-        t0 : time ~ char!('-') ~
-        t1 : time ~ char!(')'), || Displacement{start: t0, end: t1, badness: 0})
+named!(displacement <Displacement>, chain!(tag!("free(") ~
+        whitespace ~ t0 : time ~ whitespace ~
+        opt!(one_of!(",-")) ~
+        whitespace ~ t1 : time ~ whitespace ~ char!(')')
+        ~ whitespace,
+        || Displacement{start: t0, end: t1, badness: 0})
 );
 
 named!(pub entry <Entry>,
-        chain!(days : many1!(day) ~ tag!(":") ~ whitespace ~
-               displacements : many1!(displacement),
+       chain!(days : many0!(day) ~ tag!(":") ~ whitespace ~
+               displacements : many0!(displacement) ~ whitespace,
                || Entry{days: days, displacements: displacements} )
+);
+
+named!(pub entries <Vec<Entry> >,
+       many1!(entry)
 );
 
