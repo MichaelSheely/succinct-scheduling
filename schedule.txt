@@ -1,0 +1,7 @@
+Monday, Tuesday:
+  free(10am, 1pm)
+  free(2pm, 3pm) 
+
+Monday:
+  free(1pm - 5pm)
+
