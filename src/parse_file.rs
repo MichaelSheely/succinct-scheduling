@@ -30,7 +30,7 @@ fn enter_times(schedule: &mut BTreeMap<u8, Vec<(u8, u8)> >, entries: &Vec<Entry>
         let displacements = &entry.displacements;
         for day in days {
             for disp in displacements {
-                println!("Adding {:?} to {:?}.", disp, day);
+                println!("Adding {} to {:?}.", disp, day);
                 // TODO acutally add this displacement to appropriate vector
             }
         }
