@@ -8,7 +8,7 @@ mod ir;
 
 use nom::IResult;
 use ir::Entry;
-use ir::Day;
+//use ir::Day;
 use std::io::Read;
 use std::fs::File;
 use std::collections::btree_map::BTreeMap;
@@ -50,7 +50,7 @@ fn main() {
                 enter_times(&mut schedule, res);
             },
             IResult::Done(_, ref res) =>
-                println!("Remaining inputp after parsing {:#?}", res),
+                println!("Remaining input after parsing {:#?}", res),
             IResult::Error(x) => println!("Error: {:?}", x),
             IResult::Incomplete(x) => println!("Incomplete: {:?}", x),
         }
