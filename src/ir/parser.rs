@@ -44,6 +44,10 @@ named!(displacement <Displacement>, chain!(tag!("free(") ~
         || Displacement{start: t0, end: t1, badness: 0})
 );
 
+/*
+ * This is an issue because of an opt! at the end of a chain! see:
+ * https://github.com/Geal/nom/issues/271 
+ */
 named!(pub entry <Entry>,
        chain!(days : many0!(day) ~ tag!(":") ~ whitespace ~
                displacements : many0!(displacement) ~ whitespace,
