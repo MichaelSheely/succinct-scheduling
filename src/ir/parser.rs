@@ -36,12 +36,15 @@ named!(pub time <Time>, chain!(h : hour ~ m : meridiem,
        || Time{hour: h, meridiem: m})
 );
 
-named!(displacement <Displacement>, chain!(tag!("free(") ~
-        whitespace ~ t0 : time ~ whitespace ~
-        opt!(one_of!(",-")) ~
-        whitespace ~ t1 : time ~ whitespace ~ char!(')')
-        ~ whitespace,
-        || Displacement{start: t0, end: t1, badness: 0})
+named!(pub range <Displacement>, chain!(whitespace ~
+        t0: time ~ whitespace ~
+        one_of!(",-") ~ whitespace ~
+        t1: time ~ whitespace, || Displacement{start: t0, end:t1, badness:0})
+);
+
+named!(avail <Displacement>, chain!(tag!("free") ~ r: alt!(
+            chain!(char!('(') ~ r: range ~ char!(')'), || r) |
+            range), || r)
 );
 
 /*
@@ -50,7 +53,7 @@ named!(displacement <Displacement>, chain!(tag!("free(") ~
  */
 named!(pub entry <Entry>,
        chain!(days : many0!(day) ~ tag!(":") ~ whitespace ~
-               displacements : many0!(displacement) ~ whitespace,
+               displacements : many0!(avail) ~ whitespace,
                || Entry{days: days, displacements: displacements} )
 );
 

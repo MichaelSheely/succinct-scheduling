@@ -15,6 +15,10 @@ path = "src/parse_file.rs"
 #name = "repl"
 #path = "src/repl.rs"
 
+[[bin]]
+name = "leader"
+path = "src/parse_leader.rs"
+
 [dependencies]
 nom = "^1.2.4"
 regex = "0.1"
