@@ -8,7 +8,7 @@ use std::fmt;
 
 #[derive(Debug, PartialEq, PartialOrd)]
 pub enum Day {
-    Monday, Tuesday, //Wednesday, Thursday,
+    Monday, Tuesday, Wednesday//, Thursday,
     //Friday, Saturday, Sunday
 }
 

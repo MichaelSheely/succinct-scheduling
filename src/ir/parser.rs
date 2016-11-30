@@ -6,16 +6,22 @@ use ir::Meridiem;
 use ir::Time;
 
 use nom::digit;
-//use std::str;
-//use std::str::FromStr;
 
-named!(mon <Day>,
-       chain!(alt!(tag!("Monday") | tag!("monday")), || { Day::Monday }));
-named!(tues <Day>,
-       chain!(alt!(tag!("Tuesday") | tag!("tuesday")), || { Day::Tuesday }));
+named!(mon <Day>, chain!(
+        alt!(tag!("Monday") | tag!("monday")), || { Day::Monday }));
+named!(tues <Day>, chain!(
+        alt!(tag!("Tuesday") | tag!("tuesday")), || { Day::Tuesday }));
+named!(wed <Day>, chain!(
+        alt!(tag!("Wednesday") | tag!("wednesday")), || {Day::Wednesday}));
 
 named!(pub day <Day>, alt!(
-       chain!(d : alt!(mon | tues) ~ opt!(char!(',')) ~ whitespace, || { d }))
+       chain!(d : alt!(mon | tues | wed ) 
+              ~ opt!(char!(',')) ~ whitespace, || { d }))
+);
+
+named!(pub date <()>, chain!(digit ~ char!('/') ~
+                             digit ~ char!('/') ~
+                             digit, || {})
 );
 
 // Zero or more instances of whitespace
@@ -42,9 +48,14 @@ named!(pub range <Displacement>, chain!(whitespace ~
         t1: time ~ whitespace, || Displacement{start: t0, end:t1, badness:0})
 );
 
+named!(exception <()>, chain!(whitespace ~ tag!("except") ~ whitespace ~
+                                d: date, || d)
+);
+
 named!(avail <Displacement>, chain!(tag!("free") ~ r: alt!(
             chain!(char!('(') ~ r: range ~ char!(')'), || r) |
-            range), || r)
+            chain!(whitespace ~ r: range, || r))
+        ~ opt!(complete!(exception)), || r)
 );
 
 /*

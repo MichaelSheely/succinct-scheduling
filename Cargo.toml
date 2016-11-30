@@ -11,9 +11,9 @@ path = "src/lib.rs"
 name = "parse_file"
 path = "src/parse_file.rs" 
 
-#[[bin]]
-#name = "repl"
-#path = "src/repl.rs"
+[[bin]]
+name = "repl"
+path = "src/repl.rs"
 
 [[bin]]
 name = "leader"
