@@ -1,7 +1,7 @@
 Monday, Tuesday:
-  free(10am, 1pm)
+  free 10am, 1pm except 11/24/15
   free(2pm, 3pm)
 
 Monday:
-  free(1pm - 5pm)
+  free 1pm - 5pm
 
