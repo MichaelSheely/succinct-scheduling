@@ -21,11 +21,17 @@ pub struct Time {
 impl Time {
     pub fn to24hr(&self) -> u8 {
         let mut hr = self.hour;
-        // fix bug on 12:00 am
-        if self.meridiem == Meridiem::pm {
-            hr += 12;
+        // TODO: Handle 12:00am more elegantly
+        if self.meridiem == Meridiem::am && hr == 12 {
+            0
+        } else if hr == 12 {
+            12
+        } else {
+            if self.meridiem == Meridiem::pm {
+                hr += 12;
+            }
+            hr % 24
         }
-        hr % 24
     }
     pub fn from24hr(hr: u8) -> Self {
         if hr > 12 {
