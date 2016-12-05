@@ -37,7 +37,6 @@ fn day_int(d: &Day) -> u8 {
 }
 
 fn enter_times(schedule: &mut Vec<bool>, entries: &Vec<Entry>) {
-    println!("{}", ir::Time{hour: 3, meridiem: Meridiem::pm}.to24hr());
     for entry in entries {
         let days = &entry.days;
         let displacements = &entry.displacements;
