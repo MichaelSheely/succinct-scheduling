@@ -1,5 +1,5 @@
 // Michael Sheely <msheely@hmc.edu>
-// Definition of the internal representation for the scheduling 
+// Definition of the internal representation for the scheduling
 
 // Put this somewhere to allow hashing and thus insertion into maps
 // #[derive(PartialEq, Eq, Hash)]
@@ -18,6 +18,23 @@ pub struct Time {
     pub meridiem : Meridiem
     //minute : i32,
 }
+impl Time {
+    pub fn to24hr(&self) -> u8 {
+        let mut hr = self.hour;
+        // fix bug on 12:00 am
+        if self.meridiem == Meridiem::pm {
+            hr += 12;
+        }
+        hr % 24
+    }
+    pub fn from24hr(hr: u8) -> Self {
+        if hr > 12 {
+            Time{hour: hr - 12, meridiem: Meridiem::pm}
+        } else {
+            Time{hour: hr, meridiem: Meridiem::am}
+        }
+    }
+}
 impl fmt::Display for Time {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}:00{}", self.hour, self.meridiem)
@@ -25,7 +42,7 @@ impl fmt::Display for Time {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Meridiem {
     am,
     pm

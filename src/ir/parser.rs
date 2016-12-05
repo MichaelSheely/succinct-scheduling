@@ -7,15 +7,18 @@ use ir::Time;
 
 use nom::digit;
 
-named!(mon <Day>, chain!(
-        alt!(tag!("Monday") | tag!("monday")), || { Day::Monday }));
-named!(tues <Day>, chain!(
-        alt!(tag!("Tuesday") | tag!("tuesday")), || { Day::Tuesday }));
-named!(wed <Day>, chain!(
-        alt!(tag!("Wednesday") | tag!("wednesday")), || {Day::Wednesday}));
+named!(mon <Day>, chain!(alt!(
+            tag!("Monday") | tag!("monday") | tag!("mon") |
+            tag!("Mon") | tag!("M")), || { Day::Monday }));
+named!(tues <Day>, chain!(alt!(
+            tag!("Tuesday") | tag!("tuesday") | tag!("Tues") |
+            tag!("tues") | tag!("T")), || { Day::Tuesday }));
+named!(wed <Day>, chain!(alt!(
+            tag!("Wednesday") | tag!("wednesday") | tag!("Wed") |
+            tag!("wed") | tag!("W")), || {Day::Wednesday}));
 
 named!(pub day <Day>, alt!(
-       chain!(d : alt!(mon | tues | wed ) 
+       chain!(d : alt!(mon | tues | wed )
               ~ opt!(char!(',')) ~ whitespace, || { d }))
 );
 
@@ -60,7 +63,7 @@ named!(avail <Displacement>, chain!(tag!("free") ~ r: alt!(
 
 /*
  * This is an issue because of an opt! at the end of a chain! see:
- * https://github.com/Geal/nom/issues/271 
+ * https://github.com/Geal/nom/issues/271
  */
 named!(pub entry <Entry>,
        chain!(days : many0!(day) ~ tag!(":") ~ whitespace ~

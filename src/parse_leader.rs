@@ -7,8 +7,6 @@ extern crate nom;
 mod ir;
 
 use nom::IResult;
-use ir::Displacement;
-//use ir::Day;
 use std::io::Read;
 use std::fs::File;
 
