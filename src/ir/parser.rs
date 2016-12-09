@@ -47,7 +47,7 @@ named!(pub time <Time>, chain!(h : hour ~ m : meridiem,
 
 named!(pub range <Displacement>, chain!(whitespace ~
         t0: time ~ whitespace ~
-        one_of!(",-") ~ whitespace ~
+        one_of!(",-")? ~ whitespace ~
         t1: time ~ whitespace, || Displacement{start: t0, end:t1, badness:0})
 );
 
