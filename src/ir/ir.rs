@@ -12,7 +12,23 @@ pub enum Day {
     //Friday, Saturday, Sunday
 }
 
-#[derive(Debug)]
+pub fn day_to_int(d: &Day) -> u8 {
+    match *d {
+        Day::Monday    => 0,
+        Day::Tuesday   => 1,
+        Day::Wednesday => 2
+    }
+}
+pub fn day_from_int(n: u8) -> Day {
+    match n {
+        0 => Day::Monday,
+        1 => Day::Tuesday,
+        2 => Day::Wednesday,
+        _ => panic!("{} is not a valid day!", n),
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
 pub struct Time {
     pub hour : u8,
     pub meridiem : Meridiem
@@ -48,7 +64,7 @@ impl fmt::Display for Time {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Meridiem {
     am,
     pm
@@ -62,7 +78,7 @@ impl fmt::Display for Meridiem {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Displacement {
     pub start : Time,
     pub end : Time,
