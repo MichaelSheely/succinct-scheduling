@@ -6,21 +6,25 @@
 
 use std::fmt;
 
-pub static NUM_DAYS: u8 = 3;
+pub static NUM_DAYS: u8 = 7;
 pub static NUM_HOURS: u8 = 24;
 pub static NUM_MINUTES: u8 = 1;
 
 #[derive(Debug, PartialEq, PartialOrd)]
 pub enum Day {
-    Monday, Tuesday, Wednesday//, Thursday,
-    //Friday, Saturday, Sunday
+    Monday, Tuesday, Wednesday, Thursday,
+    Friday, Saturday, Sunday
 }
 
 pub fn day_to_int(d: &Day) -> u8 {
     match *d {
         Day::Monday    => 0,
         Day::Tuesday   => 1,
-        Day::Wednesday => 2
+        Day::Wednesday => 2,
+        Day::Thursday  => 3,
+        Day::Friday    => 4,
+        Day::Saturday  => 5,
+        Day::Sunday    => 6,
     }
 }
 pub fn day_from_int(n: u8) -> Day {
@@ -28,6 +32,10 @@ pub fn day_from_int(n: u8) -> Day {
         0 => Day::Monday,
         1 => Day::Tuesday,
         2 => Day::Wednesday,
+        3 => Day::Thursday,
+        4 => Day::Friday,
+        5 => Day::Saturday,
+        6 => Day::Sunday,
         _ => panic!("{} is not a valid day!", n),
     }
 }

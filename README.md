@@ -41,15 +41,18 @@ A file `schedule.txt` shown below:
 Monday, Tuesday:
   free 10am, 1pm
   free(2pm, 3pm)
-Monday:
+Mon:
   free 1pm - 5pm
 ```
 
 Another schedule file, `schedule2.txt` shown below:
 ```
-Mon, Tues:
+M, T:
   free  1pm - 2pm
   free 4pm, 5pm except 12/5/16
-Wednesday:
+wed:
   free 11am - 2pm
 ```
+
+Note the varied sytnax, capitalization, etc.  This will compile and function.
+

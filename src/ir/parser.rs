@@ -13,13 +13,25 @@ named!(mon <Day>, chain!(alt!(
             tag!("Mon") | tag!("M")), || { Day::Monday }));
 named!(tues <Day>, chain!(alt!(
             tag!("Tuesday") | tag!("tuesday") | tag!("Tues") |
-            tag!("tues") | tag!("T")), || { Day::Tuesday }));
+            tag!("tues") | tag!("T") | tag!("Tu")), || { Day::Tuesday }));
 named!(wed <Day>, chain!(alt!(
             tag!("Wednesday") | tag!("wednesday") | tag!("Wed") |
             tag!("wed") | tag!("W")), || {Day::Wednesday}));
+named!(thu <Day>, chain!(alt!(
+            tag!("Thursday") | tag!("thursday") | tag!("Thu") |
+            tag!("thu") | tag!("Th")), || {Day::Thursday}));
+named!(fri <Day>, chain!(alt!(
+            tag!("Friday") | tag!("friday") | tag!("Fri") |
+            tag!("fri") | tag!("F")), || {Day::Friday}));
+named!(sat <Day>, chain!(alt!(
+            tag!("Saturday") | tag!("saturday") | tag!("Sat") |
+            tag!("sat") | tag!("Sa")), || {Day::Saturday}));
+named!(sun <Day>, chain!(alt!(
+            tag!("Sunday") | tag!("sunday") | tag!("Sun") |
+            tag!("sun") | tag!("Su")), || {Day::Wednesday}));
 
 named!(pub day <Day>, alt!(
-       chain!(d : alt!(mon | tues | wed )
+       chain!(d : alt!(mon | tues | wed | thu | fri | sat | sun)
               ~ opt!(char!(',')) ~ whitespace, || { d }))
 );
 
@@ -92,10 +104,10 @@ fn date_to_day(month: u8, date: u8) -> Day {
     }
     match date % 7 {
         0 => Day::Wednesday,
-        //1 => Day::Thursday,
-        //2 => Day::Friday,
-        //3 => Day::Saturday,
-        //4 => Day::Sunday,
+        1 => Day::Thursday,
+        2 => Day::Friday,
+        3 => Day::Saturday,
+        4 => Day::Sunday,
         5 => Day::Monday,
         6 => Day::Tuesday,
         _ => panic!(),
