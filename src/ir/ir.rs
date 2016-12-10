@@ -6,6 +6,10 @@
 
 use std::fmt;
 
+pub static NUM_DAYS: u8 = 3;
+pub static NUM_HOURS: u8 = 24;
+pub static NUM_MINUTES: u8 = 1;
+
 #[derive(Debug, PartialEq, PartialOrd)]
 pub enum Day {
     Monday, Tuesday, Wednesday//, Thursday,
