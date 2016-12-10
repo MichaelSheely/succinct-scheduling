@@ -89,7 +89,7 @@ fn display_times(schedule: &Vec<u8>, threshold: u8) {
 
 fn get_possible_times() -> ir::Displacement {
     println!("Please enter the range of times (for example \"9am - 5pm\") \
-             over which we will try to find overlapping avalability.");
+             over which we will try to find overlapping avalability.\n>> ");
     let mut line = String::new();
     loop {
         io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false);
@@ -97,7 +97,8 @@ fn get_possible_times() -> ir::Displacement {
             IResult::Done(rest, ref res) if rest.len() == 0 => {
                 return *res;
             },
-            _ => println!("Could not parse a time range, please try again."),
+            _ => println!("Could not parse a time range,\
+                          please try again.\n>> "),
         }
         line.clear();
     };
@@ -105,7 +106,7 @@ fn get_possible_times() -> ir::Displacement {
 
 fn get_threshold() -> u8 {
     println!("How many individuals must be present for you \
-            to want to see that timeslot?");
+            to want to see that timeslot?\n>> ");
     let mut line = String::new();
     loop {
         io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false);
@@ -113,7 +114,7 @@ fn get_threshold() -> u8 {
             Ok(i) => {
                 return i;
             },
-            _ => print!("That is not a valid integer. Please try again."),
+            _ => print!("That is not a valid integer. Please try again.\n>> "),
         }
         line.clear();
     };
