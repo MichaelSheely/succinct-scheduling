@@ -33,6 +33,7 @@ fn time_within(hour: u8, d: Displacement) -> bool {
 fn enter_times(schedule: &mut Vec<u8>, entries: &Vec<Entry>,
                             valid_times: ir::Displacement) {
     let verbosity = false;
+    let mut avalibility = vec![false; schedule.len()];
     for entry in entries {
         let days = &entry.days;
         let displacements = &entry.displacements;
@@ -49,11 +50,21 @@ fn enter_times(schedule: &mut Vec<u8>, entries: &Vec<Entry>,
                 //TODO assert start_int < end_int
                 while start_int < end_int {
                     if time_within((start_int % 24) as u8, valid_times) {
-                        schedule[start_int] += 1;
+                        //schedule[start_int] += 1;
+                        avalibility[start_int] = true;
                     }
                     start_int += 1;
                 }
             }
+        }
+    }
+    // We run this as a separate loop so that we do not increment
+    // the schedule twice for the same user (for example if they said
+    // they were free every Weekday from 1 to 2 and they also specified
+    // that they were free on Tuesdays from 1 to 4).
+    for (i, avail) in avalibility.iter().enumerate() {
+        if *avail {
+            schedule[i] += 1;
         }
     }
 }
