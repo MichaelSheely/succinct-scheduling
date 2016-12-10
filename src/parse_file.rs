@@ -30,7 +30,7 @@ fn enter_times(schedule: &mut Vec<bool>, entries: &Vec<Entry>) {
         for day in days {
             for disp in displacements {
                 // TODO: Support minutes as well
-                println!("Free from {} to {:?}.", disp, day);
+                println!("Free {} on {:?}.", disp, day);
                 let day_int = day_to_int(day) as usize;
                 let mut start_int = day_int * 24 + disp.start.to24hr() as usize;
                 let end_int = day_int * 24 + disp.end.to24hr() as usize;
