@@ -18,6 +18,8 @@ use std::io;
 use std::fs::read_dir;
 use std::fs::File;
 use std::io::Read;
+use std::io::Write;
+use std::io::stdout;
 
 // TODO make into an object with this as new() method
 fn empty_schedule() -> Vec<u8> {
@@ -88,8 +90,9 @@ fn display_times(schedule: &Vec<u8>, threshold: u8) {
 }
 
 fn get_possible_times() -> ir::Displacement {
-    println!("Please enter the range of times (for example \"9am - 5pm\") \
+    print!("Please enter the range of times (for example \"9am - 5pm\") \
              over which we will try to find overlapping avalability.\n>> ");
+    stdout().flush().unwrap_or(());
     let mut line = String::new();
     loop {
         io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false);
@@ -97,16 +100,20 @@ fn get_possible_times() -> ir::Displacement {
             IResult::Done(rest, ref res) if rest.len() == 0 => {
                 return *res;
             },
-            _ => println!("Could not parse a time range,\
-                          please try again.\n>> "),
+            _ => {
+                print!("Could not parse a time range,\
+                          please try again.\n>> ");
+                stdout().flush().unwrap_or(());
+            },
         }
         line.clear();
     };
 }
 
 fn get_threshold() -> u8 {
-    println!("How many individuals must be present for you \
+    print!("How many individuals must be present for you \
             to want to see that timeslot?\n>> ");
+    stdout().flush().unwrap_or(());
     let mut line = String::new();
     loop {
         io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false);
@@ -114,7 +121,10 @@ fn get_threshold() -> u8 {
             Ok(i) => {
                 return i;
             },
-            _ => print!("That is not a valid integer. Please try again.\n>> "),
+            _ => {
+                print!("That is not a valid integer. Please try again.\n>> ");
+                stdout().flush().unwrap_or(());
+            },
         }
         line.clear();
     };
