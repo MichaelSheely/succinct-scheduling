@@ -12,7 +12,7 @@ use nom::IResult;
 fn main() {
     let mut line = String::new();
     while io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false) {
-        match ir::parse(line.as_str().trim().as_bytes()) {
+        match ir::parse_txt(line.as_str().trim().as_bytes()) {
             IResult::Done(rest, ref res) if rest.len() == 0 =>
                 println!("Parsed: {:#?}", res),
             IResult::Done(_, ref res) =>
