@@ -13,7 +13,9 @@ use ir::{NUM_DAYS, NUM_HOURS, NUM_MINUTES};
 use std::fs::File;
 use std::io;
 use std::io::Read;
+use std::io::Write;
 use std::io::stdin;
+use std::io::stdout;
 use std::env;
 
 // TODO make into an object with this as new() method
@@ -44,7 +46,8 @@ fn enter_times(schedule: &mut Vec<bool>, entries: &Vec<Entry>) {
 }
 
 fn get_filename() -> String {
-    println!("Enter the name of the file that contains your schedule.");
+    print!("Enter the name of the file that contains your schedule.\n>> ");
+    stdout().flush().unwrap_or(());
     let mut line = String::new();
     io::stdin().read_line(&mut line).map(|l| l > 0).unwrap_or(false);
     String::from(line.as_str().trim())  // Remove newline
